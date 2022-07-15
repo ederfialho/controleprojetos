@@ -1,0 +1,6 @@
+:host ::ng-deep
+.p-card {
+  background: #6b0505;
+  color:white;
+  height: 60px;
+}

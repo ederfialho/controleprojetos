@@ -1,0 +1,468 @@
+<p-toast></p-toast>
+<p-accordion>
+  <p-accordionTab header="PROJETO">
+    <div class="card">
+      <button pButton pRipple label="NOVO PROJETO" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoProjeto()"></button>
+    </div>
+    <br />
+    <p-table #editarProjetos [value]="projetos" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>PROJETO
+          <p-columnFilter type="text" field="nomeProjeto" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-projeto>
+      <tr [pEditableRow]="projeto">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarProjeto(projeto)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarProjeto(projeto)"></button>
+        </td>
+        <td style='width:500px;' >{{projeto.nomeProjeto}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="projetoDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR PROJETO<br/>
+        {{projeto.nomeProjeto}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeProjeto">Projeto:   </label><br />
+              <input type="text" pInputText id="nomeProjeto" [(ngModel)]="projeto.nomeProjeto" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !projeto.nomeProjeto">Projeto.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharProjetoDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarProjetoEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="projetoDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO PROJETO<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeProjeto">Projeto:   </label><br />
+              <input type="text" pInputText id="nomeProjeto" [(ngModel)]="projeto.nomeProjeto" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharProjetoDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoProjeto()"></button>
+      </ng-template>
+    </p-dialog>
+
+  </p-accordionTab>
+  <p-accordionTab header="CLIENTE">
+    <div class="card">
+      <button pButton pRipple label="NOVO CLIENTE" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoCliente()"></button>
+    </div>
+    <br />
+    <p-table #editarClientes [value]="clientes" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>CLIENTE
+          <p-columnFilter type="text" field="nomeCliente" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cliente>
+      <tr [pEditableRow]="cliente">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarCliente(cliente)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarCliente(cliente)"></button>
+        </td>
+        <td style='width:500px;' >{{cliente.nomeCliente}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="clienteDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR CLIENTE<br/>
+        {{cliente.nomeCliente}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeCliente">Cliente:   </label><br />
+              <input type="text" pInputText id="nomeCliente" [(ngModel)]="cliente.nomeCliente" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !cliente.nomeCliente">Cliente.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharClienteDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarClienteEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="clienteDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO CLIENTE<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeCliente">Projeto:   </label><br />
+              <input type="text" pInputText id="nomeCliente" [(ngModel)]="cliente.nomeCliente" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharClienteDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoCliente()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+  <p-accordionTab header="DISCIPLINA">
+    <div class="card">
+      <button pButton pRipple label="NOVA DISCIPLINA" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovaDisciplina()"></button>
+    </div>
+    <br />
+    <p-table #editarDisciplinas [value]="disciplinas" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>DISCIPLINA
+          <p-columnFilter type="text" field="nomeDisciplina" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-disciplina>
+      <tr [pEditableRow]="disciplina">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarDisciplina(disciplina)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarDisciplina(disciplina)"></button>
+        </td>
+        <td style='width:500px;' >{{disciplina.nomeDisciplina}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="disciplinaDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR DISCIPLINA<br/>
+        {{disciplina.nomeDisciplina}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeDisciplina">Disciplina:   </label><br />
+              <input type="text" pInputText id="nomeDisciplina" [(ngModel)]="disciplina.nomeDisciplina" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !projeto.nomeProjeto">Disciplina.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharDisciplinaDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarDisciplinaEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="clienteDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVA DISCIPLINA<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeDisciplina">Disciplina:   </label><br />
+              <input type="text" pInputText id="nomeDisciplina" [(ngModel)]="disciplina.nomeDisciplina" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharDisciplinaDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovaDisciplina()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+  <p-accordionTab header="STATUS">
+    <div class="card">
+      <button pButton pRipple label="NOVO STATUS" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoStatus()"></button>
+    </div>
+    <br />
+    <p-table #editarStatuss [value]="statuss" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>STATUS
+          <p-columnFilter type="text" field="nomeStatus" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-status>
+      <tr [pEditableRow]="status">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarStatus(status)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarStatus(status)"></button>
+        </td>
+        <td style='width:500px;' >{{status.nomeStatus}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="statusDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR STATUS<br/>
+        {{status.nomeStatus}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeStatus">Status:   </label><br />
+              <input type="text" pInputText id="nomeStatus" [(ngModel)]="status.nomeStatus" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !status.nomeStatus">Status.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharStatusDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarStatusEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="statusDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO STATUS<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeStatus">Projeto:   </label><br />
+              <input type="text" pInputText id="nomeStatus" [(ngModel)]="status.nomeStatus" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharStatusDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoStatus()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+  <p-accordionTab header="TIPO DO DOCUMENTO">
+    <div class="card">
+      <button pButton pRipple label="NOVO TIPO DE DOCUMENTO" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoTipoDocumento()"></button>
+    </div>
+    <br />
+    <p-table #editarTipoDocumentos [value]="tipoDocumentos" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>TIPO DE DOCUMENTO
+          <p-columnFilter type="text" field="nomeTipoDocumento" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tipoDocumento>
+      <tr [pEditableRow]="tipoDocumento">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarTipoDocumento(tipoDocumento)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarTipoDocumento(tipoDocumento)"></button>
+        </td>
+        <td style='width:500px;' >{{tipoDocumento.nomeTipoDocumento}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="tipoDocumentoDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR TIPO DE DOCUMENTO<br/>
+        {{tipoDocumento.nomeTipoDocumento}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeTipoDocumento">Tipo de Documento:   </label><br />
+              <input type="text" pInputText id="nomeTipoDocumento" [(ngModel)]="tipoDocumento.nomeTipoDocumento" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !tipoDocumento.nomeTipoDocumento">Tipo de Documento.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharTipoDocumentoDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarTipoDocumentoEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="tipoDocumentoDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO TIPO DE DOCUMENTO<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeTipoDocumento">Tipo de Documento:   </label><br />
+              <input type="text" pInputText id="nomeTipoDocumento" [(ngModel)]="tipoDocumento.nomeTipoDocumento" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharTipoDocumentoDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoTipoDocumento()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+  <p-accordionTab header="RESPONSAVEL ECR">
+    <div class="card">
+      <button pButton pRipple label="NOVO RESPONSAVEL ECR" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoResponsavelEcr()"></button>
+    </div>
+    <br />
+    <p-table #editarResponsavelEcrs [value]="responsavelEcrs" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>RESPONSAVEL ECR
+          <p-columnFilter type="text" field="nomeResponsavelEcr" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-responsavelEcr>
+      <tr [pEditableRow]="responsavelEcr">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarResponsavelEcr(responsavelEcr)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarResponsavelEcr(responsavelEcr)"></button>
+        </td>
+        <td style='width:500px;' >{{responsavelEcr.nomeResponsavelEcr}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="responsavelEcrDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR RESPONSÁVEL ECR<br/>
+        {{responsavelEcr.nomeResponsavelEcr}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeResponsavelEcr">Responsável Ecr:   </label><br />
+              <input type="text" pInputText id="nomeResponsavelEcr" [(ngModel)]="responsavelEcr.nomeResponsavelEcr" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !responsavelEcr.nomeResponsavelEcr">Responsável Ecr.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharResponsavelEcrDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarResponsavelEcrEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="responsavelEcrDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO RESPONSÁVEL ECR<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeResponsavelEcr">Responsável ECR:   </label><br />
+              <input type="text" pInputText id="nomeResponsavelEcr" [(ngModel)]="responsavelEcr.nomeResponsavelEcr" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharResponsavelEcrDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoResponsavelEcr()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+  <p-accordionTab header="FORMATO">
+    <div class="card">
+      <button pButton pRipple label="NOVO FORMATO" icon="pi pi-plus" class="p-button-success mr-2" (click)="abreNovoFormato()"></button>
+    </div>
+    <br />
+    <p-table #editarFormatos [value]="formatos" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm"
+    editMode="row" columnResizeMode="expand" [scrollable]="true" scrollHeight="610px" scrollDirection="both"
+    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" dataKey="id"
+    currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50,100]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style='width:100px;'></th>
+        <th style='width:500px;'>FORMATO
+          <p-columnFilter type="text" field="nomeFormato" display="menu" operator="or" [showOperator]="false" [matchModeOptions]="matchModeOptions"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-formato>
+      <tr [pEditableRow]="formato">
+        <td style='width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editarFormato(formato)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarFormato(formato)"></button>
+        </td>
+        <td style='width:500px;' >{{formato.nomeFormato}}</td>
+      </tr>
+    </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="formatoDialogEditar" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        EDITAR FORMATO<br/>
+        {{formato.nomeFormato}}<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeFormato">Formato:   </label><br />
+              <input type="text" pInputText id="nomeFormato" [(ngModel)]="formato.nomeFormato" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !projeto.nomeProjeto">Projeto.</small>
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharFormatoDialogEditar()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarFormatoEditado()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="formatoDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+      <p-header>
+        NOVO FORMATO<br/>
+      </p-header>
+      <ng-template pTemplate="content">
+          <div styleClass="p-field">
+              <label for="nomeFormato">Formato:   </label><br />
+              <input type="text" pInputText id="nomeProjeto" [(ngModel)]="formato.nomeFormato" required autofocus />
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="fecharProjetoDialog()"></button>
+          <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="salvarNovoProjeto()"></button>
+      </ng-template>
+    </p-dialog>
+  </p-accordionTab>
+</p-accordion>
+
+<p-confirmDialog [style]="{width: '450px'}" acceptButtonStyleClass="p-button-danger" rejectButtonStyleClass="p-button-success"></p-confirmDialog>

@@ -1,0 +1,431 @@
+<p-toast></p-toast>
+<!-- Botões-->
+<div class="card"><button pButton pRipple type="button" label="Ordenar por Nº CLIENTE FINAL" class="p-button-sm p-button-text"
+  (click) = "botaoOrdenar('final')" style="font-size: 12px;"></button>
+  <button pButton pRipple type="button" label="Ordenar por Nº CLIENTE OU ECR" class="p-button-sm p-button-success p-button-text"
+  (click) = "botaoOrdenar('ecr')" style="font-size: 12px;"></button>
+</div>
+<br />
+<p-table #table [value]="controles" responsiveLayout="scroll" styleClass="p-datatable-gridlines p-datatable-sm p-datatable-striped"
+editMode="row" columnResizeMode="expand"
+[scrollable]="true" scrollHeight="590px" scrollDirection="both" [resizableColumns]="true"
+[paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+currentPageReportTemplate="Exibindo {first} registro de {last} no total de {totalRecords} registros"
+[rowsPerPageOptions]="[5,10,25,50,100]">
+  <ng-template pTemplate="header">
+      <tr>
+      <th style='max-width:100px;'></th>
+      <th style='width:250px;' pResizableColumn pSortableColumn="projeto.nomeProjeto">PROJETO<p-sortIcon field="projeto.nomeProjeto"></p-sortIcon>
+        <p-columnFilter type="text" field="projeto.nomeProjeto" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="cliente.nomeCliente">CLIENTE<p-sortIcon field="cliente.nomeCliente"></p-sortIcon>
+        <p-columnFilter type="text" field="cliente.nomeCliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="disciplina.nomeDisciplina">DISCIPLINA<p-sortIcon field="disciplina.nomeDisciplina"></p-sortIcon>
+        <p-columnFilter type="text" field="disciplina.nomeDisciplina" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="numeroClienteFinal">N° CLIENTE FINAL<p-sortIcon field="numeroClienteFinal"></p-sortIcon>
+        <p-columnFilter type="text" field="numeroClienteFinal" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="numeroClienteOuEcr">Nº CLIENTE OU ECR<p-sortIcon field="numeroClienteOuEcr"></p-sortIcon>
+        <p-columnFilter type="text" field="numeroClienteOuEcr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="tituloDoDocumento">TITULO DO DOCUMENTO<p-sortIcon field="tituloDoDocumento"></p-sortIcon>
+        <p-columnFilter type="text" field="tituloDoDocumento" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="revUe">REV U.E<p-sortIcon field="revUe"></p-sortIcon>
+        <p-columnFilter type="text" field="revUe" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="status.nomeStatus">STATUS<p-sortIcon field="status.nomeStatus"></p-sortIcon>
+        <p-columnFilter type="text" field="status.nomeStatus" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="tipoDocumento.nomeTipoDocumento">TIPO DOCUMENTO<p-sortIcon field="tipoDocumento.nomeTipoDocumento"></p-sortIcon>
+        <p-columnFilter type="text" field="tipoDocumento.nomeTipoDocumento" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="responsavelEcr.nomeResponsavelEcr">RESP. ECR<p-sortIcon field="responsavelEcr.nomeResponsavelEcr"></p-sortIcon>
+        <p-columnFilter type="text" field="responsavelEcr.nomeResponsavelEcr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="peiEcr">PEI ECR<p-sortIcon field="peiEcr"></p-sortIcon>
+        <p-columnFilter type="text" field="peiEcr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="peiCliente">PEI CLIENTE<p-sortIcon field="peiCliente"></p-sortIcon>
+        <p-columnFilter type="text" field="peiCliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="reiCliente">REI CLIENTE<p-sortIcon field="reiCliente"></p-sortIcon>
+        <p-columnFilter type="text" field="reiCliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="dataEi">DATA EI<p-sortIcon field="dataEi"></p-sortIcon>
+        <p-columnFilter type="text" field="dataEi" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="grdEi">GRD EI<p-sortIcon field="grdEi"></p-sortIcon>
+        <p-columnFilter type="text" field="grdEi" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="cC">CC (SIM/NÃO)<p-sortIcon field="cC"></p-sortIcon>
+        <p-columnFilter type="text" field="cC" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="dataRecCc">DATA REC. CC<p-sortIcon field="dataRecCc"></p-sortIcon>
+        <p-columnFilter type="text" field="dataRecCc" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="pacEcr">PAC ECR<p-sortIcon field="pacEcr"></p-sortIcon>
+        <p-columnFilter type="text" field="pacEcr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="pacCliente">PAC CLIENTE<p-sortIcon field="pacCliente"></p-sortIcon>
+        <p-columnFilter type="text" field="pacCliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="racCliente">RAC CLIENTE<p-sortIcon field="racCliente"></p-sortIcon>
+        <p-columnFilter type="text" field="racCliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="dataUe">DATA U.E<p-sortIcon field="dataUe"></p-sortIcon>
+        <p-columnFilter type="text" field="dataUe" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="grdUe">GRD U.E<p-sortIcon field="grdUe"></p-sortIcon>
+        <p-columnFilter type="text" field="grdUe" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="formato.nomeFormato">FORMATO<p-sortIcon field="formato.nomeFormato"></p-sortIcon>
+        <p-columnFilter type="text" field="formato.nomeFormato" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="qtdePagina">QTDE PÁGINAS<p-sortIcon field="qtdePagina"></p-sortIcon>
+        <p-columnFilter type="text" field="qtdePagina" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="a1eq">A1EQ<p-sortIcon field="a1eq"></p-sortIcon>
+        <p-columnFilter type="text" field="a1eq" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="peso">PESO (KG) <p-sortIcon field="peso"></p-sortIcon>
+        <p-columnFilter type="text" field="peso" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="areaDoProjeto">AREA DO PROJETO<p-sortIcon field="areaDoProjeto"></p-sortIcon>
+        <p-columnFilter type="text" field="areaDoProjeto" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="tag">TAG<p-sortIcon field="tag"></p-sortIcon>
+        <p-columnFilter type="text" field="tag" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="decisaoEnum">PENDENCIA (SIM/NÃO)<p-sortIcon field="decisaoEnum"></p-sortIcon>
+        <p-columnFilter type="text" field="decisaoEnum" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="pendencia">PENDENCIA<p-sortIcon field="pendencia"></p-sortIcon>
+        <p-columnFilter type="text" field="pendencia" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorVenda">VALOR VENDA<p-sortIcon field="valorVenda"></p-sortIcon>
+        <p-columnFilter type="text" field="valorVenda" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm1Cliente">BM1_CLIENTE<p-sortIcon field="bm1Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="bm1Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm1Cliente">VALOR BM1_CLIENTE<p-sortIcon field="valorBm1Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm1Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm2Cliente">BM2_CLIENTE<p-sortIcon field="bm2Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="bm2Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm2Cliente">VALOR BM2_CLIENTE<p-sortIcon field="valorBm2Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm2Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm3Cliente">BM3_CLIENTE<p-sortIcon field="bm3Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="bm3Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm3Cliente">VALOR BM3_CLIENTE<p-sortIcon field="valorBm3Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm3Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm4Cliente">BM4_CLIENTE<p-sortIcon field="bm4Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="bm4Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm4Cliente">VALOR BM4_CLIENTE<p-sortIcon field="valorBm4Cliente"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm4Cliente" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorContratado">VALOR CONTRATADO<p-sortIcon field="valorContratado"></p-sortIcon>
+        <p-columnFilter type="text" field="valorContratado" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm1Ecr">BM1_ECR<p-sortIcon field="bm1Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="bm1Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm1Ecr">VALOR BM1_CLIENTE<p-sortIcon field="valorBm1Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm1Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm2Ecr">BM2_ECR<p-sortIcon field="bm2Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="bm2Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm2Ecr">VALOR BM2_CLIENTE<p-sortIcon field="valorBm2Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm2Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm3Ecr">BM3_ECR<p-sortIcon field="bm3Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="bm3Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm3Ecr">VALOR BM3_CLIENTE<p-sortIcon field="valorBm3Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm3Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="bm4Ecr">BM4_ECR<p-sortIcon field="bm4Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="bm4Ecr" display="menu"></p-columnFilter>
+      </th>
+      <th pResizableColumn pSortableColumn="valorBm4Ecr">VALOR BM4_CLIENTE<p-sortIcon field="valorBm4Ecr"></p-sortIcon>
+        <p-columnFilter type="text" field="valorBm4Ecr" display="menu"></p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-controle let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="controle" [ngClass]="{'aprovado': controle.status.nomeStatus=== 'APROVADO',
+                                                  'emitido': controle.status.nomeStatus=== 'EMITIDO',
+                                                  'emElaboracao': controle.status.nomeStatus=== 'EM ELABORAÇÃO',
+                                                  'emAtendimentoDeComentario': controle.status.nomeStatus=== 'EM ATENDIMENTO DE COMENTÁRIO'}">
+        <td style='max-width:100px;'>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(controle)"></button>
+          &nbsp;
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletarControle(controle)"></button>
+        </td>
+          <td style='width:250px;'>{{controle.projeto.nomeProjeto == null ? '-' : controle.projeto.nomeProjeto}}</td>
+          <td>{{controle.cliente.nomeCliente == null ? '-' : controle.cliente.nomeCliente}}</td>
+          <td>{{controle.disciplina.nomeDisciplina == null ? '-' : controle.disciplina.nomeDisciplina}}</td>
+          <td>{{controle.numeroClienteFinal == null ? '-' : controle.numeroClienteFinal}}</td>
+          <td>{{controle.numeroClienteOuEcr == null ? '-' : controle.numeroClienteOuEcr}}</td>
+          <td style='text-align:left'><pre>{{controle.tituloDoDocumento == null ? '-' : controle.tituloDoDocumento}}</pre></td>
+          <td>{{controle.revUe == null ? '-' : controle.revUe}}</td>
+          <td>{{controle.status.nomeStatus == null ? '-' : controle.status.nomeStatus}}</td>
+          <td>{{controle.tipoDocumento.nomeTipoDocumento == null ? '-' : controle.tipoDocumento.nomeTipoDocumento}}</td>
+          <td>{{controle.responsavelEcr.nomeResponsavelEcr == null ? '-' : controle.responsavelEcr.nomeResponsavelEcr}}</td>
+          <td>{{controle.peiEcr == null ? '-' : controle.peiEcr}}</td>
+          <td>{{controle.peiCliente == null ? '-' : controle.peiCliente}}</td>
+          <td>{{controle.reiCliente == null ? '-' : controle.reiCliente}}</td>
+          <td>{{controle.dataEi == null ? '-' : controle.dataEi}}</td>
+          <td><pre>{{controle.grdEi == null ? '-' : controle.grdEi}}</pre></td>
+          <td>{{controle.cC == null ? '-' : controle.cC}}</td>
+          <td>{{controle.dataRecCc == null ? '-' : controle.dataRecCc}}</td>
+          <td>{{controle.pacEcr  == null ? '-' : controle.pacEcr}}</td>
+          <td>{{controle.pacCliente  == null ? '-' : controle.pacCliente}}</td>
+          <td>{{controle.racCliente  == null ? '-' : controle.racCliente}}</td>
+          <td>{{controle.dataUe  == null ? '-' : controle.dataUe}}</td>
+          <td>{{controle.grdUe  == null ? '-' : controle.grdUe}}</td>
+          <td>{{controle.formato.nomeFormato == null ? '-' : controle.formato.nomeFormato}}</td>
+          <td>{{controle.qtdePagina == null ? '-' : controle.qtdePagina}}</td>
+          <td>{{controle.a1eq == null ? '-' : controle.a1eq}}</td>
+          <td>{{controle.peso == null ? '-' : controle.peso}}</td>
+          <td>{{controle.areaDoProjeto == null ? '-' : controle.areaDoProjeto}}</td>
+          <td>{{controle.tag == null ? '-' : controle.tag}}</td>
+          <td>{{controle.decisaoEnum == null ? '-' : controle.decisaoEnum}}</td>
+          <td><pre>{{controle.pendencia == null ? '-' : controle.pendencia}}</pre></td>
+          <td>{{controle.valorVenda == null ? '-' : controle.valorVenda| currency}}</td>
+          <td>{{controle.bm1Cliente == null ? '-' : controle.bm1Cliente}}</td>
+          <td>{{controle.valorBm1Cliente == null ? '-' : controle.valorBm1Cliente | currency}}</td>
+          <td>{{controle.bm2Cliente == null ? '-' : controle.bm2Cliente}}</td>
+          <td>{{controle.valorBm2Cliente == null ? '-' : controle.valorBm2Cliente | currency}}</td>
+          <td>{{controle.bm3Cliente == null ? '-' : controle.bm3Cliente}}</td>
+          <td>{{controle.valorBm3Cliente == null ? '-' : controle.valorBm3Cliente | currency}}</td>
+          <td>{{controle.bm4Cliente == null ? '-' : controle.bm4Cliente}}</td>
+          <td>{{controle.valorBm4Cliente == null ? '-' : controle.valorBm4Cliente | currency}}</td>
+          <td>{{controle.valorContratado == null ? '-' : controle.valorContratado | currency}}</td>
+          <td>{{controle.bm1Ecr == null ? '-' : controle.bm1Ecr}}</td>
+          <td>{{controle.valorBm1Ecr == null ? '-' : controle.valorBm1Ecr | currency}}</td>
+          <td>{{controle.bm2Ecr == null ? '-' : controle.bm2Ecr}}</td>
+          <td>{{controle.valorBm2Ecr == null ? '-' : controle.valorBm2Ecr | currency}}</td>
+          <td>{{controle.bm3Ecr == null ? '-' : controle.bm3Ecr}}</td>
+          <td>{{controle.valorBm3Ecr == null ? '-' : controle.valorBm3Ecr | currency}}</td>
+          <td>{{controle.bm4Ecr == null ? '-' : controle.bm4Ecr}}</td>
+          <td>{{controle.valorBm4Ecr == null ? '-' : controle.valorBm4Ecr | currency}}</td>
+        </tr>
+  </ng-template>
+</p-table>
+
+<!--Tela de Edição --- A fazer -->
+<p-dialog [(visible)]="controleDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+  <p-header>
+    DETALHES DO CONTROLE<br/>
+    {{controle.numeroClienteFinal}}<br/>
+    {{controle.numeroClienteOuEcr}}<br/>
+  </p-header>
+  <ng-template pTemplate="content">
+      <div styleClass="p-field">
+          <label for="nomeProjeto">PROJETO:   </label><br />
+          <input type="text" pInputText id="nomeProjeto" [(ngModel)]="controle.projeto.nomeProjeto" required autofocus />
+          <small class="p-invalid" *ngIf="submitted && !controle.projeto.nomeProjeto">Projeto:</small>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">CLIENTE:   </label><br/>
+          <input type="text" pInputText id="nomeCliente" pInputTextarea [(ngModel)]="controle.cliente.nomeCliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">DISCIPLINA   </label><br />
+          <input type="text" pInputText id="nomeDisciplina" [(ngModel)]="controle.disciplina.nomeDisciplina" />
+      </div>
+      <div styleClass="p-field">
+          <label for="description">Nº CLIENTE FINAL:   </label><br/>
+          <input type="text" pInputText id="numeroClienteFinal" pInputTextarea [(ngModel)]="controle.numeroClienteFinal"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">Nº CLIENTE OU ECR:   </label><br />
+          <input type="text" pInputText id="numeroClienteOuEcr" [(ngModel)]="controle.numeroClienteOuEcr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">TITULO DO DOCUMENTO:   </label><br/>
+          <input type="text" pInputText id="tituloDoDocumento" pInputTextarea [(ngModel)]="controle.tituloDoDocumento"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">REV U.E:   </label><br />
+          <input type="text" pInputText id="revUe" [(ngModel)]="controle.revUe"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">STATUS:   </label><br/>
+          <input type="text" pInputText id="nomeStatus" pInputTextarea [(ngModel)]="controle.status.nomeStatus"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">TIPO DOCUMENTO:   </label><br />
+          <input type="text" pInputText id="nomeTipoDocumento" [(ngModel)]="controle.tipoDocumento.nomeTipoDocumento"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">RESP. ECR:   </label><br/>
+          <input type="text" pInputText id="nomeResponsavelEcr" pInputTextarea [(ngModel)]="controle.responsavelEcr.nomeResponsavelEcr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">PEI ECR:   </label><br />
+          <input type="text" pInputText id="peiEcr" [(ngModel)]="controle.peiEcr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">PEI CLIENTE:   </label><br/>
+          <input type="text" pInputText id="peiCliente" pInputTextarea [(ngModel)]="controle.peiCliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">REI CLIENTE:   </label><br />
+          <input type="text" pInputText id="reiCliente" [(ngModel)]="controle.reiCliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">DATA EI:   </label><br />
+          <input type="text" pInputText id="dataEi" [(ngModel)]="controle.dataEi"/>
+      </div>
+      <div styleClass="p-field">
+        <label for="description">GRD EI:   </label><br/>
+        <input type="text" pInputText id="grdEi" pInputTextarea [(ngModel)]="controle.grdEi"/>
+    </div>
+      <div styleClass="p-field">
+          <label for="description">CC (SIM/NÃO):   </label><br/>
+          <input type="text" pInputText id="cC" pInputTextarea [(ngModel)]="controle.cC"/>
+      </div><div styleClass="p-field">
+          <label for="nomeProjeto">DATA REC CC:   </label><br />
+          <input type="text" pInputText id="dataRecCc" [(ngModel)]="controle.dataRecCc"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">PAC ECR:   </label><br/>
+          <input type="text" pInputText id="pacEcr" pInputTextarea [(ngModel)]="controle.pacEcr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">PAC CLIENTE:   </label><br />
+          <input type="text" pInputText id="pacCliente" [(ngModel)]="controle.pacCliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">RAC CLIENTE:   </label><br/>
+          <input type="text" pInputText id="racCliente" pInputTextarea [(ngModel)]="controle.racCliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">DATA U.E:   </label><br />
+          <input type="text" pInputText id="dataUe" [(ngModel)]="controle.dataUe"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">GRD U.E:   </label><br/>
+          <input type="text" pInputText id="grdUe" pInputTextarea [(ngModel)]="controle.grdUe"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">FORMATO:   </label><br />
+          <input type="text" pInputText id="nomeFormato" [(ngModel)]="controle.formato.nomeFormato"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">QTDE PÁGINAS:   </label><br/>
+          <input type="text" pInputText id="qtdePagina" pInputTextarea [(ngModel)]="controle.qtdePagina"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">A1EQ:   </label><br />
+          <input type="text" pInputText id="nomeProjeto" [(ngModel)]="controle.projeto.nomeProjeto"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">PESO (KG):   </label><br/>
+          <input type="text" pInputText id="description" pInputTextarea [(ngModel)]="controle.peso"/>
+      </div><div styleClass="p-field">
+          <label for="nomeProjeto">AREA DO PROJETO:   </label><br />
+          <input type="text" pInputText id="areaDoProjeto" [(ngModel)]="controle.areaDoProjeto"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">TAG:   </label><br/>
+          <input type="text" pInputText id="tag" pInputTextarea [(ngModel)]="controle.tag"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">PENDENCIA (SIM/NÃO):   </label><br />
+          <input type="text" pInputText id="nomeProjeto" [(ngModel)]="controle.decisaoEnum" />
+      </div>
+      <div styleClass="p-field">
+          <label for="description">PENDENCIA:   </label><br/>
+          <input type="text" pInputText id="description" pInputTextarea [(ngModel)]="controle.pendencia"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">VALOR VENDA:   </label><br />
+          <input type="text" pInputText id="valorVenda" [(ngModel)]="controle.valorVenda"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">BM1_CLIENTE   </label><br/>
+          <input type="text" pInputText id="bm1Cliente" pInputTextarea [(ngModel)]="controle.bm1Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">VALOR BM1_CLIENTE:   </label><br />
+          <input type="text" pInputText id="valorBm1Cliente" [(ngModel)]="controle.valorBm1Cliente" required autofocus />
+      </div>
+      <div styleClass="p-field">
+          <label for="description">BM2_CLIENTE:   </label><br/>
+          <input type="text" pInputText id="bm2Cliente" pInputTextarea [(ngModel)]="controle.bm2Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">VALOR BM2_CLIENTE:   </label><br />
+          <input type="text" pInputText id="valorBm2Cliente" [(ngModel)]="controle.valorBm2Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">BM3_CLIENTE:   </label><br/>
+          <input type="text" pInputText id="bm3Cliente" pInputTextarea [(ngModel)]="controle.bm3Cliente"/>
+      </div><div styleClass="p-field">
+          <label for="nomeProjeto">VALOR BM3_CLIENTE:   </label><br />
+          <input type="text" pInputText id="valorBm3Cliente" [(ngModel)]="controle.valorBm3Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">BM4_CLIENTE:   </label><br/>
+          <input type="text" pInputText id="description" pInputTextarea [(ngModel)]="controle.bm4Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">VALOR BM4_CLIENTE:   </label><br />
+          <input type="text" pInputText id="valorBm4Cliente" [(ngModel)]="controle.valorBm4Cliente"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">VALOR CONTRATADO:   </label><br/>
+          <input type="text" pInputText id="valorContratado" pInputTextarea [(ngModel)]="controle.valorContratado"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">BM1_ECR:   </label><br />
+          <input type="text" pInputText id="bm1Ecr" [(ngModel)]="controle.bm1Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">VALOR BM1_ECR:   </label><br/>
+          <input type="text" pInputText id="valorBm1Ecr" pInputTextarea [(ngModel)]="controle.valorBm1Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">BM2_ECR:   </label><br />
+          <input type="text" pInputText id="bm2Ecr" [(ngModel)]="controle.bm2Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">VALOR BM2_ECR:   </label><br/>
+          <input type="text" pInputText id="valorBm2Ecr" pInputTextarea [(ngModel)]="controle.valorBm2Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="nomeProjeto">BM3_ECR:   </label><br />
+          <input type="text" pInputText id="bm3Ecr" [(ngModel)]="controle.bm3Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">VALOR BM3_ECR:   </label><br/>
+          <input type="text" pInputText id="bm3Ecr" pInputTextarea [(ngModel)]="controle.bm3Ecr"/>
+      </div><div styleClass="p-field">
+          <label for="nomeProjeto">BM4_ECR:   </label><br />
+          <input type="text" pInputText id="bm4Ecr" [(ngModel)]="controle.bm4Ecr"/>
+      </div>
+      <div styleClass="p-field">
+          <label for="description">VALOR BM4_ECR:   </label><br/>
+          <input type="text" pInputText id="bm4Ecr" pInputTextarea [(ngModel)]="controle.bm4Ecr"/>
+      </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}" acceptButtonStyleClass="p-button-danger" rejectButtonStyleClass="p-button-success"></p-confirmDialog>

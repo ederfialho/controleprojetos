@@ -1,0 +1,31 @@
+:host ::ng-deep {
+  .p-datatable {
+    .p-datatable-header {
+        padding: 1rem;
+        text-align: left;
+        font-size: 1.5rem;
+    }
+
+    .p-paginator {
+        padding: 1rem;
+    }
+
+    .p-datatable-thead > tr > th {
+        width:350px;
+        text-align:center;
+        vertical-align:middle;
+        background: #6b0505;
+        color:white;
+    }
+
+    .p-datatable-tbody > tr > td {
+        text-align:center;
+        vertical-align:middle;
+        width:350px;
+    }
+
+    .p-dropdown-label:not(.p-placeholder) {
+        text-transform: uppercase;
+    }
+}
+}
