@@ -1,5 +1,10 @@
 package br.com.cdp.entidades.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serial;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_formato")
 public class Formato implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Id
+  @EqualsAndHashCode.Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id_formato")
   private Long id;
